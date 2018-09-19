@@ -1,11 +1,11 @@
 'use strict'
 
 // creating a base name for the mongodb
-const mongooseBaseName = 'express-api-template'
+const mongooseBaseName = 'duckies-bucket'
 
 // create the mongodb uri for development and test
 const database = {
-  development: `mongodb://localhost/${mongooseBaseName}-development`,
+  development: `mongodb://localhost/${mongooseBaseName}-dev`,
   test: `mongodb://localhost/${mongooseBaseName}-test`
 }
 
