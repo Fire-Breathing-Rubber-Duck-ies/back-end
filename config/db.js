@@ -3,6 +3,7 @@
 // creating a base name for the mongodb
 const mongooseBaseName = 'duckies-bucket'
 
+
 // create the mongodb uri for development and test
 const database = {
   development: `mongodb://localhost/${mongooseBaseName}-dev`,
