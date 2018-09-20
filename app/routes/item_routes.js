@@ -100,7 +100,7 @@ router.patch('/items/:id', requireToken, (req, res) => {
       return item.update(req.body.items)
     })
     // if that succeeded, return 204 and no JSON
-    .then((item) => res.status(202).json({ items: item.toObject() }))
+    .then((item) => res.status(202).json({ items: item }))
     // if an error occurs, pass it to the handler
     .catch(err => handle(err, res))
 })
