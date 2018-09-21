@@ -36,7 +36,19 @@ router.get('/items', requireToken, (req, res) => {
       // `items` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
-      return items.map(item => item.toObject())
+      const itemsObjects = items.map(item => item.toObject())
+      // Array of objects that belong to user to return
+      const userObjects = []
+      // Loop through all objects, and compare to user id
+      for (var i = 0; i < itemsObjects.length; i++) {
+        console.log(itemsObjects[i].owner, 'object owner id')
+        console.log(req.user.id, 'current user id')
+        if (itemsObjects[i].owner == req.user.id) {
+          console.log('I got hit on object number', i)
+          userObjects.push(itemsObjects[i])
+        }
+      }
+      return userObjects
     })
     // respond with status 200 and JSON of the items
     .then(items => res.status(200).json({ items: items }))
