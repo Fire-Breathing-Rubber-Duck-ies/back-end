@@ -41,10 +41,7 @@ router.get('/items', requireToken, (req, res) => {
       const userObjects = []
       // Loop through all objects, and compare to user id
       for (var i = 0; i < itemsObjects.length; i++) {
-        console.log(itemsObjects[i].owner, 'object owner id')
-        console.log(req.user.id, 'current user id')
         if (itemsObjects[i].owner == req.user.id) {
-          console.log('I got hit on object number', i)
           userObjects.push(itemsObjects[i])
         }
       }
