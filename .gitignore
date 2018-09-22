@@ -201,4 +201,10 @@ bower.json # same
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore example files so they are removed from repo, but remain in roots.
+./models/example.js
+./routes/example_routes.js
+./scripts/examples
+./test/example.js
+
 # End of https://www.gitignore.io/api/rails
