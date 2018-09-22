@@ -39,7 +39,7 @@ router.get('/items', requireToken, (req, res) => {
       // `items` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
-      const itemsObjects = items.map(item => item.toObject())
+      const itemsObjects = items.map(item => item.toObject()).sort((a, b) => a.priority > b.priority ? -1 : 1)
       // Array of objects that belong to user to return
       const userItems = []
       // Loop through all objects, and compare to user id
