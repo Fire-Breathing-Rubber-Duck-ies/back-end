@@ -32,20 +32,23 @@ const router = express.Router()
 // GET /items
 router.get('/items', requireToken, (req, res) => {
   Item.find()
+    // handle404 = if there is not data, return error message
+    // else return the data.
+    .then(handle404)
     .then(items => {
       // `items` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
       const itemsObjects = items.map(item => item.toObject())
       // Array of objects that belong to user to return
-      const userObjects = []
+      const userItems = []
       // Loop through all objects, and compare to user id
-      for (var i = 0; i < itemsObjects.length; i++) {
-        if (itemsObjects[i].owner == req.user.id) {
-          userObjects.push(itemsObjects[i])
+      itemsObjects.forEach(item => {
+        if (item.owner.equals(req.user.id)) {
+          userItems.push(item)
         }
-      }
-      return userObjects
+      })
+      return userItems
     })
     // respond with status 200 and JSON of the items
     .then(items => res.status(200).json({ items: items }))
@@ -72,6 +75,7 @@ router.post('/items', requireToken, (req, res) => {
   req.body.items.owner = req.user.id
 
   Item.create(req.body.items)
+    .then(handle404)
     // respond to succesful `create` with status 201 and JSON of new "item"
     .then(item => {
       res.status(201).json({ items: item.toObject() })
