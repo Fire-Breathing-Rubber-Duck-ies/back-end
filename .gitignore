@@ -111,7 +111,6 @@ _SpecRunner.html
 *.svg
 *.ttf
 *.eot
-public/
 
 ### Ruby ###
 *.gem
@@ -202,9 +201,9 @@ bower.json # same
 .byebug_history
 
 # Ignore example files so they are removed from repo, but remain in roots.
-./models/example.js
-./routes/example_routes.js
-./scripts/examples
-./test/example.js
+/app/models/example.js
+/app/routes/example_routes.js
+/scripts/examples
+/test/example.js
 
 # End of https://www.gitignore.io/api/rails
