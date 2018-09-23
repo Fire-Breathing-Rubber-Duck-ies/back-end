@@ -5,7 +5,6 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 
 // require route files
-const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
 const itemRoutes = require('./app/routes/item_routes')
 
@@ -70,7 +69,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // register route files
-app.use(exampleRoutes)
 app.use(userRoutes)
 app.use(itemRoutes)
 
