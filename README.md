@@ -1,94 +1,34 @@
-[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+Group Project
+Julian Sirkin, Michael Greim, Joseph Petrucci
 
-# Duck-ies...Which Breath Fire..
+# Bucket List Express Api
 
-Fire-Breathing-Rubber-Duck-ies have been added to world. And so, begins the end.
+List Api back end database for Bucket List Browser.
 
-# express-api-template
+Technologies used in this project include Mongodb, Express, bcrypt, body-parser, Mongoose, passport and Heroku
 
-A template for starting projects with `express` as an API. Includes
-authentication and common middlewares.
+This API recieves requests from cross-origin clients and responds with JSON snippets of User created bucket list items.
 
-## Installation
+# Bucket List Browser Repo:
 
-1.  [Download](../../archive/master.zip) this template.
-1.  Move the .zip file to your `wdi/projects/` directory and Unzip it (creating a folder) -- **NOTE:** if the folder was already unzipped, use the `mv` command line to move it to the `wdi/projects/` directory.
-1.  Rename the directory from express-api-template -> your-app-name.
-1.  Empty [`README.md`](README.md) and fill with your own content.
-1.  Move into the new project and `git init`.
-1.  Replace all instances of `'express-api-template'` with your app name.
-1.  Install dependencies with `npm install`.
-1.  Ensure that you have `nodemon` installed by running `npm install -g nodemon`.
-1.  From the root of your repository, run the following commands. They will set a SECRET_KEY for development and testing.
- ```sh
- echo SECRET_KEY_BASE_TEST=$(openssl rand -base64 66 | tr -d '\n') >> .env
- echo SECRET_KEY_BASE_DEVELOPMENT=$(openssl rand -base64 66 | tr -d '\n') >> .env
- ```
-1.  Ensure the API is functioning properly by running `npm run server`.
-1.  Once everything is working, make an initial commit.
-1.  Follow the steps in [express-api-deployment-guide](https://git.generalassemb.ly/ga-wdi-boston/express-api-deployment-guide)
+https://github.com/Fire-Breathing-Rubber-Duck-ies/front-end
 
-## Structure
+## Live Sites:
 
-Dependencies are stored in [`package.json`](package.json).
+https://fbrduckies.herokuapp.com \
+https://fire-breathing-rubber-duck-ies.github.io/front-end
 
-The most important file for understanding the structure of the template is
-`server.js`. This is where the actual Express `app` object is created, where
-the middlewares and routes are registered, and more. To register a routefile,
-follow the pattern established here with `exampleRoutes` and `userRoutes`. If
-you want to add any middlewares to your app, do that here.
+### Unsolved Issues:
 
-The `app` directory contains models and route files. Models are simply Mongoose
-models. To create your own, follow the patterns established in
-`app/models/example.js`. Route files are somewhat similar to controllers in
-Rails, but they cover more functionality, including serialization and deciding
-which HTTP verbs to accept and what to do with them.
+Our duckies do not yet breathe fire. This is an issue for me. There seem to be a few small oversights with margins. Lack of space between sign in, and new user buttons. List item fields appear to be aligned to the top of their cells vs in the center.
 
-The `config` directory holds just `db.js`, which is where you specify the name
-and URL of your database.
+## ERD:
 
-The `lib` directory is for code that will be used in other places in the
-application. The token authentication code is stored in `lib/auth.js`. The
-other files in `lib` deal with error handling. `custom_errors.js` is where all
-the different custom classes of errors are created. If you need some other kind
-of error message, you can add it here. There are also some functions defined
-here that are used elsewhere to check for errors. `lib/error_handler.js` is a
-function that will be used in all your `.catch`es. It catches errors, and sets
-the response status code based on what type of error got thrown.
-
-You probably will only need to interact with files in `app/models`,
-`app/routes`, and `server.js`. You'll need to edit `db/config.js` just once,
-to change the name of your app.
-
-## Tasks
-
-Instead of `grunt`, this template uses `npm` as a task runner. This is more
-conventional for modern Express apps, and it's handy because we'll definitely
-use `npm` anyway. These are the commands available:
-
-| Command                | Effect                                                                                                      |
-|------------------------|-------------------------------------------------------------------------------------------------------------|
-| `npm run server`       | Starts a development server with `nodemon` that automatically refreshes when you change something.                                                                                         |
-| `npm test`             | Runs automated tests.                                                                                       |
-| `npm run debug-server` | Starts the server in debug mode, which will print lots of extra info about what's happening inside the app. |
+![ERD v1 & 2](./public/erd.jpg)
 
 ## API
 
-Use this as the basis for your own API documentation. Add a new third-level
-heading for your custom entities, and follow the pattern provided for the
-built-in user authentication documentation.
-
-Scripts are included in [`scripts`](scripts) to test built-in actions. Add your
-own scripts to test your custom API.
-
-### Authentication
-
-| Verb   | URI Pattern            | Controller#Action |
-|--------|------------------------|-------------------|
-| POST   | `/sign-up`             | `users#signup`    |
-| POST   | `/sign-in`             | `users#signin`    |
-| PATCH  | `/change-password/` | `users#changepw`  |
-| DELETE | `/sign-out/`        | `users#signout`   |
+Scripts are included in [`scripts`](scripts) to test built-in actions.
 
 #### POST /sign-up
 
@@ -107,7 +47,7 @@ curl --include --request POST http://localhost:4741/sign-up \
 ```
 
 ```sh
-scripts/sign-up.sh
+scripts/auth/sign-up.sh
 ```
 
 Response:
@@ -140,7 +80,7 @@ curl --include --request POST http://localhost:4741/sign-in \
 ```
 
 ```sh
-scripts/sign-in.sh
+scripts/auth/sign-in.sh
 ```
 
 Response:
@@ -164,7 +104,7 @@ Request:
 
 ```sh
 curl --include --request PATCH http://localhost:4741/change-password/ \
-  --header "Authorization: Token token=$TOKEN" \
+  --header "Authorization: Bearer $TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
     "passwords": {
@@ -175,7 +115,7 @@ curl --include --request PATCH http://localhost:4741/change-password/ \
 ```
 
 ```sh
-TOKEN=33ad6372f795694b333ec5f329ebeaaa scripts/change-password.sh
+TOKEN=33ad6372f795694b333ec5f329ebeaaa scripts/auth/change-password.sh
 ```
 
 Response:
@@ -190,11 +130,11 @@ Request:
 
 ```sh
 curl --include --request DELETE http://localhost:4741/sign-out/ \
-  --header "Authorization: Token token=$TOKEN"
+  --header "Authorization: Bearer $TOKEN"
 ```
 
 ```sh
-TOKEN=33ad6372f795694b333ec5f329ebeaaa scripts/sign-out.sh
+TOKEN=33ad6372f795694b333ec5f329ebeaaa scripts/auth/sign-out.sh
 ```
 
 Response:
@@ -203,8 +143,129 @@ Response:
 HTTP/1.1 204 No Content
 ```
 
-## [License](LICENSE)
+### List items
 
-1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
-1.  All software code is licensed under GNU GPLv3. For commercial use or
-    alternative licensing, please contact legal@ga.co.
+#### POST /items
+
+```sh
+curl --include --request POST http://localhost:4741/items \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer 333desd82dd12rf2eh" \
+  --data '{
+    "items": {
+      "name": "Bungee",
+      "description": "Elastic Thrill",
+      "location": "From atop a cliff to the rocks below",
+      "priority": 10
+    }
+  }'
+```
+
+```sh
+scripts/item/create.sh
+```
+
+Response:
+
+```md
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+
+{
+  "items": {
+    "_id": "IDOBJECT"
+    "name": "Bungee",
+    "description": "Elastic Thrill",
+    "location": "From atop a cliff to the rocks below",
+    "priority": 10
+  }
+}
+```
+
+#### GET /items
+
+Request:
+
+```sh
+curl --include --request GET http://localhost:4741/items \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer 333desd82dd12rf2eh" \
+```
+
+```sh
+scripts/item/index.sh
+ID=someId sh scripts/item/show.sh
+```
+
+Response:
+
+```md
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+  "items": {
+    "_id": "IDOBJECT"
+    "name": "Bungee",
+    "description": "Elastic Thrill",
+    "location": "From atop a cliff to the rocks below",
+    "priority": 10
+  }
+}
+```
+
+#### PATCH /items/:id
+
+Request:
+
+```sh
+curl --include --request PATCH http://localhost:4741/items/ \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "items": {
+      "name": "Bungee",
+      "description": "Elastic Thrill",
+      "location": "From the rocks below to the cliff atop",
+      "priority": 1
+    }
+  }'
+```
+
+```sh
+TOKEN=33ad6372f795694b333ec5f329ebeaaa scripts/item/update.sh
+```
+
+Response:
+
+```md
+HTTP/1.1 202 Accepted
+
+{
+  "items": {
+    "n": 1,
+    "nModified":1,
+    "ok":1
+  }
+}
+
+```
+
+#### DELETE /items/
+
+Request:
+
+```sh
+curl --include --request DELETE http://localhost:4741/items/ \
+  --header "Authorization: Bearer $TOKEN"
+```
+
+```sh
+TOKEN=33ad6372f795694b333ec5f329ebeaaa scripts/item/destroy.sh
+```
+
+Response:
+
+```md
+HTTP/1.1 204 No Content
+```
